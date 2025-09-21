@@ -489,6 +489,8 @@ class Message extends TelegramTypes
      */
     public $reply_markup;
 
+	public $link_preview_options;
+
     /**
      * A message may contain one or more subobjects, map them always in this function
      *
