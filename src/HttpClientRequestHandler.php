@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace unreal4u\TelegramAPI;
 
-use Exception;
 use Psr\Http\Message\ResponseInterface;
 use React\EventLoop\LoopInterface;
 use React\Http\Browser;
@@ -39,7 +38,7 @@ class HttpClientRequestHandler implements RequestHandlerInterface
      */
     public function __construct(LoopInterface $loop, array $options = [])
     {
-        $this->client = new Browser($loop, new Connector($loop, $options));
+        $this->client = new Browser(new Connector($options, $loop), $loop);
     }
 
     /**
@@ -91,7 +90,7 @@ class HttpClientRequestHandler implements RequestHandlerInterface
                 );
             },
             // Promise rejected
-            static function (Exception $e) {
+            static function (\Throwable $e) {
                 if ($e instanceof ResponseException) {
                     throw ClientException::fromResponseException($e);
                 }

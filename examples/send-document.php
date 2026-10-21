@@ -10,7 +10,7 @@ use unreal4u\TelegramAPI\Telegram\Methods\GetFile;
 use unreal4u\TelegramAPI\Telegram\Methods\SendDocument;
 use unreal4u\TelegramAPI\Telegram\Types\Custom\InputFile;
 use unreal4u\TelegramAPI\TgLog;
-use function Clue\React\Block\await;
+use function React\Async\await;
 
 $loop = Factory::create();
 $tgLog = new TgLog(BOT_TOKEN, new HttpClientRequestHandler($loop));
@@ -32,13 +32,13 @@ $promise->then(
         // Load uploaded video and generate URL to download using bot token
         $getFileVideo = new GetFile();
         $getFileVideo->file_id = $response->document->file_id;
-        $fileVideo = await($tgLog->performApiRequest($getFileVideo), $loop);
+        $fileVideo = await($tgLog->performApiRequest($getFileVideo));
         var_dump('Document url: ' . $tgLog->fileUrl($fileVideo));
 
         // Load uploaded thumbnail and generate URL to download using bot token
         $getFileThumb = new GetFile();
         $getFileThumb->file_id = $response->document->thumbnail->file_id;
-        $fileThumb = await($tgLog->performApiRequest($getFileThumb), $loop);
+        $fileThumb = await($tgLog->performApiRequest($getFileThumb));
         var_dump('Thumbnail url: ' . $tgLog->fileUrl($fileThumb));
     },
     function (\Exception $exception) {

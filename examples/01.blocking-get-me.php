@@ -12,5 +12,5 @@ use unreal4u\TelegramAPI\TgLog;
 $loop = Factory::create();
 $tgLog = new TgLog(BOT_TOKEN, new HttpClientRequestHandler($loop));
 
-$response = Clue\React\Block\await($tgLog->performApiRequest(new GetMe()), $loop);
+$response = React\Async\await($tgLog->performApiRequest(new GetMe()));
 var_dump($response);

@@ -41,7 +41,7 @@ class PostOptionsConstructor
      */
     protected $logger;
 
-    public function __construct(LoggerInterface $logger = null)
+    public function __construct(?LoggerInterface $logger = null)
     {
         if ($logger === null) {
             $logger = new Logger();

@@ -13,7 +13,7 @@ class ResultBoolean extends CustomType
 {
     public $data = false;
 
-    public function __construct(bool $result, LoggerInterface $logger = null)
+    public function __construct(bool $result, ?LoggerInterface $logger = null)
     {
         $this->data = $result;
     }

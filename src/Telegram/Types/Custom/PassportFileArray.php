@@ -14,7 +14,7 @@ use Psr\Log\LoggerInterface;
  */
 class PassportFileArray extends TraversableCustomType
 {
-    public function __construct(array $data = null, LoggerInterface $logger = null)
+    public function __construct(?array $data = null, ?LoggerInterface $logger = null)
     {
         if (count($data) !== 0) {
             foreach ($data as $id => $passportFile) {

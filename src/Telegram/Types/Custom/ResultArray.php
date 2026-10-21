@@ -16,7 +16,7 @@ class ResultArray extends TraversableCustomType
      */
     public $data = '';
 
-    public function __construct(array $result, LoggerInterface $logger = null)
+    public function __construct(array $result, ?LoggerInterface $logger = null)
     {
         $this->data = $result;
     }

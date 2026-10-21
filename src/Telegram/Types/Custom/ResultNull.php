@@ -11,7 +11,7 @@ use unreal4u\TelegramAPI\Abstracts\CustomType;
  */
 class ResultNull extends CustomType
 {
-    public function __construct(array $result = null, LoggerInterface $logger = null)
+    public function __construct(?array $result = null, ?LoggerInterface $logger = null)
     {
         $this->data = $result;
     }

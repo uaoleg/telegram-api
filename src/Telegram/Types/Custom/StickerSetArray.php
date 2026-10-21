@@ -13,7 +13,7 @@ use unreal4u\TelegramAPI\Telegram\Types\Sticker;
  */
 class StickerSetArray extends TraversableCustomType
 {
-    public function __construct(array $result = null, LoggerInterface $logger = null)
+    public function __construct(?array $result = null, ?LoggerInterface $logger = null)
     {
         if (count($result) !== 0) {
             foreach ($result as $id => $sticker) {
