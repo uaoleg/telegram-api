@@ -20,7 +20,7 @@ class MessageEntityArray extends TraversableCustomType
      * @noinspection MagicMethodsValidityInspection
      * @noinspection PhpMissingParentConstructorInspection
      */
-    public function __construct(array $data = null, LoggerInterface $logger = null)
+    public function __construct(?array $data = null, ?LoggerInterface $logger = null)
     {
         if (count($data) !== 0) {
             foreach ($data as $id => $messageEntity) {

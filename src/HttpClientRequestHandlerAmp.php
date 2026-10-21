@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace unreal4u\TelegramAPI;
 
-use Amp\Artax\DefaultClient;
-use Amp\Artax\Request;
-use Amp\Artax\Response;
+use Amp\Http\Client\HttpClientBuilder;
+use Amp\Http\Client\Request;
+use Amp\Http\Client\Response;
 use Amp\Promise;
 use React\Promise\Deferred;
 use React\Promise\PromiseInterface;
@@ -15,9 +15,9 @@ use unreal4u\TelegramAPI\InternalFunctionality\TelegramResponse;
 
 /**
  * @param Promise $promise
- * @return \React\Promise\PromiseInterface
+ * @return PromiseInterface
  */
-function reactAdapt(Promise $promise)
+function reactAdapt(Promise $promise): PromiseInterface
 {
     $deferred = new Deferred();
 
@@ -34,28 +34,24 @@ function reactAdapt(Promise $promise)
 
 class HttpClientRequestHandlerAmp implements RequestHandlerInterface
 {
-
     /**
-     * @var DefaultClient
+     * @var \Amp\Http\Client\HttpClient
      */
     private $client;
 
     public function __construct()
     {
-        $this->client = new DefaultClient;
+        $this->client = HttpClientBuilder::buildDefault();
     }
 
     /**
      * @param string $uri
      *
      * @return PromiseInterface
-     * @throws \unreal4u\TelegramAPI\Exceptions\ClientException
      */
     public function get(string $uri): PromiseInterface
     {
-        $request = new Request($uri);
-
-        return $this->processRequest($request);
+        return $this->processRequest(new Request($uri));
     }
 
     /**
@@ -63,18 +59,17 @@ class HttpClientRequestHandlerAmp implements RequestHandlerInterface
      * @param array $formFields
      *
      * @return PromiseInterface
-     * @throws \unreal4u\TelegramAPI\Exceptions\ClientException
      */
     public function post(string $uri, array $formFields): PromiseInterface
     {
         $request = new Request($uri, 'POST');
 
         if (!empty($formFields['headers'])) {
-            $request = $request->withHeaders($formFields['headers']);
+            $request->setHeaders($formFields['headers']);
         }
 
         if (!empty($formFields['body'])) {
-            $request = $request->withBody($formFields['body']);
+            $request->setBody($formFields['body']);
         }
 
         return $this->processRequest($request);
@@ -84,9 +79,8 @@ class HttpClientRequestHandlerAmp implements RequestHandlerInterface
      * @param Request $request
      *
      * @return PromiseInterface
-     * @throws \unreal4u\TelegramAPI\Exceptions\ClientException
      */
-    public function processRequest(Request $request)
+    public function processRequest(Request $request): PromiseInterface
     {
         return reactAdapt(\Amp\call(function () use ($request) {
             /** @var Response $response */
@@ -96,7 +90,7 @@ class HttpClientRequestHandlerAmp implements RequestHandlerInterface
                 throw new ClientException($response->getReason(), $response->getStatus());
             }
 
-            return new TelegramResponse(yield $response->getBody(), $response->getHeaders());
+            return new TelegramResponse(yield $response->getBody()->buffer(), $response->getHeaders());
         }));
     }
 }

@@ -22,7 +22,7 @@ class MockTgLog extends TgLog
      */
     public $mockException = false;
 
-    public function __construct($botToken, LoggerInterface $logger = null)
+    public function __construct($botToken, ?LoggerInterface $logger = null)
     {
         $handler = new MockRequestHandler();
         parent::__construct($botToken, $handler, $logger);

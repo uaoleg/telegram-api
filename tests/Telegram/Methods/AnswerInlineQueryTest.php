@@ -60,8 +60,9 @@ class AnswerInlineQueryTest extends TestCase
         );
 
         $promise->then(function (ResultBoolean $message) {
-            $this->assertInstanceOf(ResultBoolean::class, $message->data);
-            $this->assertSame('1', $message);
+            $this->assertInstanceOf(ResultBoolean::class, $message);
+            $this->assertTrue($message->data);
+            $this->assertSame('1', (string) $message);
         });
     }
 }

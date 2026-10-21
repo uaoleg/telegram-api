@@ -16,7 +16,7 @@ abstract class TelegramTypes
      */
     protected $logger;
 
-    public function __construct(array $data = null, LoggerInterface $logger = null)
+    public function __construct(?array $data = null, ?LoggerInterface $logger = null)
     {
         if ($logger === null) {
             $logger = new Logger();

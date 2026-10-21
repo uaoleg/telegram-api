@@ -13,7 +13,7 @@ class ResultInt extends CustomType
 {
     public $data = 0;
 
-    public function __construct(int $result, LoggerInterface $logger = null)
+    public function __construct(int $result, ?LoggerInterface $logger = null)
     {
         $this->data = $result;
     }

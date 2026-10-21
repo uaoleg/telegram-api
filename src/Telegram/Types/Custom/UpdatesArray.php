@@ -13,7 +13,7 @@ use unreal4u\TelegramAPI\Telegram\Types\Update;
  */
 class UpdatesArray extends TraversableCustomType
 {
-    public function __construct(array $data = null, LoggerInterface $logger = null)
+    public function __construct(?array $data = null, ?LoggerInterface $logger = null)
     {
         if (count($data) !== 0) {
             foreach ($data as $telegramResponse) {

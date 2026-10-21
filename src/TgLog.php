@@ -58,7 +58,7 @@ class TgLog
      * @param RequestHandlerInterface $handler
      * @param LoggerInterface $logger
      */
-    public function __construct(string $botToken, RequestHandlerInterface $handler, LoggerInterface $logger = null)
+    public function __construct(string $botToken, RequestHandlerInterface $handler, ?LoggerInterface $logger = null)
     {
         $this->botToken = $botToken;
 
